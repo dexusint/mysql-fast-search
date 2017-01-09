@@ -10,44 +10,47 @@
 
 #include "database.h"
 
-class MySQLResult;
+namespace MySQLAccessor {
+  class MySQLDB : public IDatabase{
+  public:
+    class MySQLResult : public IDatabase::IResult {
+    public:
+      void setDB(MySQLDB* mysqlDB) {
+        db = mysqlDB;
+      }
+      bool next() {
+        return db->res->next();
+      }
 
-class MySQLDB : public IDatabase{
-private:
-  sql::Driver *driver = nullptr;
-  sql::Connection *con = nullptr;
-  sql::Statement *stmt = nullptr;
-  sql::ResultSet *res = nullptr;
+      std::string getString(std::string column) {
+        return db->res->getString(column);
+      }
 
-  friend class MySQLResult;
-  MySQLResult *mysqlRes;
+      std::string getString(int column) {
+        return db->res->getString(column);
+      }
 
-public:
-  ~MySQLDB();
-  void connect();
-  void setSchema(std::string schema);
-  IResult* execQuery(std::string queryStr);
-};
+    private:
+      MySQLDB* db;
+    };
 
-class MySQLResult : public IResult {
-public:
-  void setDB(MySQLDB* mysqlDB) {
-    db = mysqlDB;
-  }
-  bool next() {
-    return db->res->next();
-  }
+    ~MySQLDB();
+    void connect();
+    void setSchema(std::string schema);
+    IDatabase::IResult* execQuery(std::string queryStr);
 
-  std::string getString(std::string column) {
-    return db->res->getString(column);
-  }
+    private:
+      sql::Driver *driver = nullptr;
+      sql::Connection *con = nullptr;
+      sql::Statement *stmt = nullptr;
+      sql::ResultSet *res = nullptr;
 
-  std::string getString(int column) {
-    return db->res->getString(column);
-  }
+      friend class MySQLDB::MySQLResult;
+      MySQLDB::MySQLResult *mysqlRes;
+  };
 
-private:
-  MySQLDB* db;
-};
+
+
+} // namespace MySQLAccessor
 
 #endif //MYSQLDB_H

@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace MySQLAccessor {
+
 void MySQLDB::connect() {
   try {
     driver = get_driver_instance();
@@ -17,7 +19,7 @@ void MySQLDB::connect() {
   }
 
   if (mysqlRes == nullptr) {
-    mysqlRes = new MySQLResult();
+    mysqlRes = new MySQLDB::MySQLResult();
     mysqlRes->setDB(this);
   }
 }
@@ -43,7 +45,7 @@ void MySQLDB::setSchema(std::string schema){
   }
 }
 
-IResult* MySQLDB::execQuery(std::string queryStr){
+IDatabase::IResult* MySQLDB::execQuery(std::string queryStr){
   try {
     stmt = con->createStatement();
     res = stmt->executeQuery(queryStr.c_str());
@@ -57,3 +59,5 @@ IResult* MySQLDB::execQuery(std::string queryStr){
 
   return mysqlRes;
 }
+
+} // namespace MySQLAccessor

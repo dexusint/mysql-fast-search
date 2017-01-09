@@ -27,15 +27,20 @@
 //}
 
 #include "mysql-accessor/mysqldb.h"
+#include "controller/controller.h"
 
 using namespace std;
+using namespace MySQLAccessor;
+using namespace DataControl;
 
 int main(void)
 {
-  unique_ptr<IDatabase> db(new MySQLDB());
+  shared_ptr<IDatabase> db(new MySQLDB());
   db->connect();
   db->setSchema(string("users"));
-  IResult* res = db->execQuery(string("SELECT * FROM user"));
+  Controller<IDatabase> controller(db);
+
+  IDatabase::IResult* res = db->execQuery(string("SELECT * FROM user"));
   while (res->next()) {
     cout << "\t... MySQL replies: ";
     /* Access column data by alias or column name */

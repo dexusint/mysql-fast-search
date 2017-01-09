@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 
-set (PROJECT counters)
+set (PROJECT mysql-fast-search)
 
 set (HEADERS 
 	../includes/counter.h)
@@ -12,7 +12,8 @@ set (SOURCES
 set (LIBRARIES
 	calculator
 	generator
-	mysql-accessor)
+	mysql-accessor
+	controller)
 
 set (BOOST_COMPONENTS
 	system 
