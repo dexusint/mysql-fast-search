@@ -1,13 +1,13 @@
 cmake_minimum_required (VERSION 2.6)
 
 set (PROJECT
-	controller)
+	users-controller)
 
 set (HEADERS
-	../controller.h)
+	../userscontroller.h)
 
 set (SOURCES
-	../sources/controller.cpp)
+	../sources/userscontroller.cpp)
 
 set (TESTS_SOURCES
 	../tests/test.cpp)

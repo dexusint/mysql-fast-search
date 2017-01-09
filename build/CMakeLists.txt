@@ -13,7 +13,7 @@ set (LIBRARIES
 	calculator
 	generator
 	mysql-accessor
-	controller)
+	users-controller)
 
 set (BOOST_COMPONENTS
 	system 

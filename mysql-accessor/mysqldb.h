@@ -35,7 +35,7 @@ namespace MySQLAccessor {
     };
 
     ~MySQLDB();
-    void connect();
+    void connect(std::string username, std::string password);
     void setSchema(std::string schema);
     IDatabase::IResult* execQuery(std::string queryStr);
 

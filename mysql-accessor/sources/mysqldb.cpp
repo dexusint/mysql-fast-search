@@ -6,10 +6,10 @@ using namespace std;
 
 namespace MySQLAccessor {
 
-void MySQLDB::connect() {
+void MySQLDB::connect(std::string username, std::string password) {
   try {
     driver = get_driver_instance();
-    con = driver->connect("tcp://127.0.0.1:3306", "root", "123456");
+    con = driver->connect("tcp://127.0.0.1:3306", username.c_str(), password.c_str());
   } catch (sql::SQLException &e) {
     cout << "# ERR: SQLException in " << __FILE__;
     cout << "(" << __FUNCTION__ << ") on line "  << __LINE__ << endl;

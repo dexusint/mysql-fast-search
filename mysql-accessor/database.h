@@ -15,7 +15,7 @@ public:
     virtual std::string getString(int column) = 0;
   };
 
-  virtual void connect() = 0;
+  virtual void connect(std::string username, std::string password) = 0;
 	virtual void setSchema(std::string schema) = 0;
 	virtual IResult* execQuery(std::string queryStr) = 0;
 };

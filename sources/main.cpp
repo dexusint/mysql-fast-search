@@ -27,7 +27,7 @@
 //}
 
 #include "mysql-accessor/mysqldb.h"
-#include "controller/controller.h"
+#include "users-controller/userscontroller.h"
 
 using namespace std;
 using namespace MySQLAccessor;
@@ -36,19 +36,10 @@ using namespace DataControl;
 int main(void)
 {
   shared_ptr<IDatabase> db(new MySQLDB());
-  db->connect();
-  db->setSchema(string("users"));
-  Controller<IDatabase> controller(db);
+  db->connect("root", "123456");
+  db->setSchema("users");
+  UsersController<IDatabase> usersController(db);
+  usersController.getAllUsers();
 
-  IDatabase::IResult* res = db->execQuery(string("SELECT * FROM user"));
-  while (res->next()) {
-    cout << "\t... MySQL replies: ";
-    /* Access column data by alias or column name */
-    cout << res->getString("id") << " " << res->getString("birthday") << " " << res->getString("gender") << " " <<
-        res->getString("city_id") << " " << res->getString("time_reg") << endl;
-    cout << "\t... MySQL says it again: ";
-    /* Access column data by numeric offset, 1 is the first column */
-    cout << res->getString(1) << endl;
-  }
   return EXIT_SUCCESS;
 }
