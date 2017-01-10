@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <ctime>
 
 namespace DataControl {
 
@@ -30,7 +31,33 @@ dbAccessor(accessor)
 
 template <class T>
 void UsersController<T>::addUser(int id, time_t birthday, int gender, int city_id, time_t time_reg){
+  char buff[10];
+  struct std::tm bd = *localtime(&birthday);
+  snprintf(buff, sizeof(buff), "%02d", bd.tm_mon + 1);
+  std::string bd_month = buff;
+  snprintf(buff, sizeof(buff), "%02d", bd.tm_mday);
+  std::string bd_day = buff;
+  struct std::tm tr = *localtime(&time_reg);
+  snprintf(buff, sizeof(buff), "%02d", tr.tm_mon + 1);
+  std::string tr_month = buff;
+  snprintf(buff, sizeof(buff), "%02d", tr.tm_mday);
+  std::string tr_day = buff;
+  snprintf(buff, sizeof(buff), "%02d", tr.tm_hour);
+  std::string tr_hour = buff;
+  snprintf(buff, sizeof(buff), "%02d", tr.tm_min);
+  std::string tr_min = buff;
+  snprintf(buff, sizeof(buff), "%02d", tr.tm_sec);
+  std::string tr_sec = buff;
 
+  std::string queryString;
+  queryString = "INSERT INTO user(id, birthday, gender, city_id, time_reg) VALUES (" + std::to_string(id) + ", " + "\"" +
+      std::to_string(bd.tm_year + 1900) + "-" + bd_month + "-" + bd_day + " 00:00:00\", " +
+      std::to_string(gender) + ", " + std::to_string(city_id) + ", \"" +
+      std::to_string(tr.tm_year + 1900) + "-" + tr_month + "-" + tr_day + " " +
+      tr_hour + ":" + tr_min + ":" + tr_sec + "\")";
+
+  std::cout << queryString << std::endl;
+  dbAccessor->execQuery(queryString);
 }
 
 template <class T>
