@@ -5,9 +5,7 @@
 
 BOOST_AUTO_TEST_CASE(testGenerator)
 {
-	Utils::Generator generator;
-	for (size_t n = 1; n <= 10; ++n)
-	{
-		BOOST_CHECK_EQUAL(n, generator());
-	}
+	Utils::Generator<1, 10> generator;
+	auto value = generator();
+	BOOST_CHECK(value > 1 && value < 10);
 }

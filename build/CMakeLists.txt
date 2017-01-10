@@ -3,10 +3,10 @@ cmake_minimum_required (VERSION 2.6)
 set (PROJECT mysql-fast-search)
 
 set (HEADERS 
-	../includes/counter.h)
+	../includes/application.h)
 
 set (SOURCES 
-	../sources/counter.cpp 
+	../sources/application.cpp 
 	../sources/main.cpp)
 
 set (LIBRARIES

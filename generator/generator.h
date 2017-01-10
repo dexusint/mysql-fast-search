@@ -2,24 +2,28 @@
 #define GENERATOR_H
 
 #include <cstddef>
+#include <cstdlib>
+#include <ctime>
 
-#include <boost/noncopyable.hpp>
-#include <boost/thread/mutex.hpp>
+using std::size_t;
 
 namespace Utils
 {
-	class Generator
-		: private boost::noncopyable
-	{
-	public:
-		Generator();
+template <size_t lowerBound, size_t upperBound>
+class Generator
+{
+public:
+  Generator() {
+    srand(time(0));
+  }
+  size_t operator()();
+};
 
-		size_t operator()();
+template <size_t lowerBound, size_t upperBound>
+size_t Generator<lowerBound, upperBound>::operator()() {
+  return ((double)rand() / RAND_MAX) * (upperBound - lowerBound);
+}
 
-	private:
-		size_t Value_;
-		boost::mutex Mutex_;
-	};
 }
 
 #endif//GENERATOR_H
