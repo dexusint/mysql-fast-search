@@ -13,7 +13,7 @@ public:
   UsersController(std::shared_ptr<T> accessor);
 
 public:
-  void addUser();
+  void addUser(int id, time_t birthday, int gender, int city_id, time_t time_reg);
   void deleteUser();
   void getAllUsers();
   void getUser();
@@ -27,6 +27,11 @@ template <class T>
 UsersController<T>::UsersController(std::shared_ptr<T> accessor):
 dbAccessor(accessor)
 {}
+
+template <class T>
+void UsersController<T>::addUser(int id, time_t birthday, int gender, int city_id, time_t time_reg){
+
+}
 
 template <class T>
 void UsersController<T>::getAllUsers(){

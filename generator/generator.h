@@ -9,19 +9,25 @@ using std::size_t;
 
 namespace Utils
 {
-template <size_t lowerBound, size_t upperBound>
+template <typename T>
 class Generator
 {
 public:
-  Generator() {
+  Generator(T lowerBound, T upperBound):
+    m_lowerBound(lowerBound),
+    m_upperBound(upperBound)
+  {
     srand(time(0));
   }
-  size_t operator()();
+  T operator()();
+private:
+  T m_lowerBound;
+  T m_upperBound;
 };
 
-template <size_t lowerBound, size_t upperBound>
-size_t Generator<lowerBound, upperBound>::operator()() {
-  return ((double)rand() / RAND_MAX) * (upperBound - lowerBound);
+template <typename T>
+T Generator<T>::operator()() {
+  return ((double)rand() / RAND_MAX) * (m_upperBound - m_lowerBound) + m_lowerBound;
 }
 
 }

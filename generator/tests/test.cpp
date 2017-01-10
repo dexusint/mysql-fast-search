@@ -5,7 +5,7 @@
 
 BOOST_AUTO_TEST_CASE(testGenerator)
 {
-	Utils::Generator<1, 10> generator;
+	Utils::Generator<int> generator(1, 10);
 	auto value = generator();
-	BOOST_CHECK(value > 1 && value < 10);
+	BOOST_CHECK(value >= 1 && value <= 10);
 }

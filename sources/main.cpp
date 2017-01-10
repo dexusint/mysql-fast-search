@@ -1,39 +1,30 @@
 #include <iostream>
 #include <cstddef>
 
-
-#include "mysql-accessor/mysqldb.h"
-#include "users-controller/userscontroller.h"
+#include "../includes/application.h"
 
 using namespace std;
-using namespace MySQLAccessor;
-using namespace DataControl;
 
 int main(void)
 {
-  shared_ptr<IDatabase> db(new MySQLDB());
-  db->connect("root", "123456");
-  db->setSchema("users");
-  UsersController<IDatabase> usersController(db);
-  usersController.getAllUsers();
-
   int menuItem = -1;
 
   while (true) {
     cout <<
-        R"(Select menue item:
-          1. Generate database
-          0. Exit)" << endl;
+R"(Select menue item:
+1. Generate database
+2. Add random user
+0. Exit)" << endl;
 
     cin >> menuItem;
 
     switch(menuItem) {
       case(1): {
-
+        Application::fillDatabase();
         break;
       }
       case(2): {
-
+        Application::addRandomUser();
         break;
       }
       case(0): {
