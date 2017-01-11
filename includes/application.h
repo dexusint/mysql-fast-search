@@ -7,7 +7,7 @@
 
 class Application {
 public:
-  static void fillDatabase(int count = MAX_COUNT);
+  static void fillDatabase(int count = MAX_COUNT, int birthYearBeg = 1975, int birthYearEnd = 1990, int regYearBeg = 2006, int regYearEnd = 2016, int cityIdBeg = 0, int cityIdEnd = 100);
   static void addRandomUser(int birthYearBeg = 1975, int birthYearEnd = 1990, int regYearBeg = 2006, int regYearEnd = 2016, int cityIdBeg = 0, int cityIdEnd = 100);
   static const int MAX_COUNT = 10000000;
 

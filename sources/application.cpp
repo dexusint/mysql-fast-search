@@ -37,7 +37,7 @@ void Application::addRandomUser(int birthYearBeg, int birthYearEnd, int regYearB
   Generator<time_t> randomRegDayGen(begRegDate, endRegDate);
   const auto randomRegDate = randomRegDayGen();
   Generator<int> randomGender(0, 1);
-  Generator<int> randomCityId(0, 1000);
+  Generator<int> randomCityId(cityIdBeg, cityIdEnd);
 //  string begBirthTime = ctime(&begBirthDate);
 //  string endBirthTime = ctime(&endBirthDate);
 //  string randomBirthTime = ctime(&randomBirthDate);
@@ -54,16 +54,35 @@ void Application::addRandomUser(int birthYearBeg, int birthYearEnd, int regYearB
   db->connect("root", "123456");
   db->setSchema("users");
   UsersController<IDatabase> usersController(db);
-  usersController.addUser(7, randomBirthDate, randomGender(), randomCityId(), randomRegDate);
+  usersController.addUser(34, randomBirthDate, randomGender(), randomCityId(), randomRegDate);
 
 }
 
-void Application::fillDatabase(int count) {
+void Application::fillDatabase(int count, int birthYearBeg, int birthYearEnd, int regYearBeg, int regYearEnd, int cityIdBeg, int cityIdEnd) {
+  const time_t begBirthDate = makeTimePoint(birthYearBeg, 1, 1, 0, 0, 0);
+  const time_t endBirthDate = makeTimePoint(birthYearEnd, 12, 31, 23, 59, 59);
+  Generator<time_t> randomBirthDayGen(begBirthDate, endBirthDate);
+  const time_t begRegDate = makeTimePoint(regYearBeg, 1, 1, 0, 0, 0);
+  const time_t endRegDate = makeTimePoint(regYearEnd, 12, 31, 23, 59, 59);
+  Generator<time_t> randomRegDayGen(begRegDate, endRegDate);
+  Generator<int> randomGender(0, 1);
+  Generator<int> randomCityId(cityIdBeg, cityIdEnd);
+
+
   shared_ptr<IDatabase> db(new MySQLDB());
   db->connect("root", "123456");
   db->setSchema("users");
   UsersController<IDatabase> usersController(db);
-  usersController.getAllUsers();
+
+  for(int i=0; i <= count; ++i) {
+    usersController.addUser(i, randomBirthDayGen(), randomGender(), randomCityId(), randomRegDayGen());
+  }
+
+//  shared_ptr<IDatabase> db(new MySQLDB());
+//  db->connect("root", "123456");
+//  db->setSchema("users");
+//  UsersController<IDatabase> usersController(db);
+//  usersController.getAllUsers();
 
 //  for (int i = 0; i < count; ++i) {
 //

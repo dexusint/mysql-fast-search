@@ -50,11 +50,11 @@ void UsersController<T>::addUser(int id, time_t birthday, int gender, int city_i
   std::string tr_sec = buff;
 
   std::string queryString;
-  queryString = "INSERT INTO user(id, birthday, gender, city_id, time_reg) VALUES (" + std::to_string(id) + ", " + "\"" +
-      std::to_string(bd.tm_year + 1900) + "-" + bd_month + "-" + bd_day + " 00:00:00\", " +
-      std::to_string(gender) + ", " + std::to_string(city_id) + ", \"" +
+  queryString = "INSERT INTO user(id, birthday, gender, city_id, time_reg) VALUES (" + std::to_string(id) + ", " + "\'" +
+      std::to_string(bd.tm_year + 1900) + "-" + bd_month + "-" + bd_day + " 00:00:00\', " +
+      std::to_string(gender) + ", " + std::to_string(city_id) + ", \'" +
       std::to_string(tr.tm_year + 1900) + "-" + tr_month + "-" + tr_day + " " +
-      tr_hour + ":" + tr_min + ":" + tr_sec + "\")";
+      tr_hour + ":" + tr_min + ":" + tr_sec + "\')";
 
   std::cout << queryString << std::endl;
   dbAccessor->execQuery(queryString);

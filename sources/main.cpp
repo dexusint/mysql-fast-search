@@ -20,7 +20,7 @@ R"(Select menue item:
 
     switch(menuItem) {
       case(1): {
-        Application::fillDatabase();
+        Application::fillDatabase(100);
         break;
       }
       case(2): {
